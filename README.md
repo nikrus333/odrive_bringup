@@ -39,8 +39,7 @@ setup and launch odrive
   >
    
 ## 3. Если мотор не калибруется:
-  <dump_errors(odrv0)
-                      >
+  <<dump_errors(odrv0) >>
 
 ## 4. Запускаем python-скрипт:
-    <python3 MotorControl_odrive.py >
+    <<python3 MotorControl_odrive.py >>

@@ -15,7 +15,7 @@ setup and launch odrive
   odrv0.config.dc_max_negative_current =  -5
   odrv0.config.max_regen_current = 5 
   odrv0.axis0.controller.config.vel_gain = 0.01
-  odrv0.axis0.controller.config.vel_integrator_gain = 0.05>
+  odrv0.axis0.controller.config.vel_integrator_gain = 0.05
   ```
 Настройка второго двигателя:
   ```

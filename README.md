@@ -43,6 +43,4 @@ setup and launch odrive
                       >
 
 ## 4. Запускаем python-скрипт:
-    <
-    python3 MotorControl_odrive.py
-             >
+    <python3 MotorControl_odrive.py >

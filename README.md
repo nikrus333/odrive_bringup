@@ -1,10 +1,10 @@
 # odrive_bringup
 setup and launch odrive
 ## 1. Необходимо настроить параметры контроллера, для этого вводим следующие команды в терминал:
-  <odrivetool>
-  <odrv0.axis0.motor.config.current_lim = 10>
-  <odrv0.axis0.controller.config.vel_limit = 58> 
-  <odrv0.axis0.motor.config.calibration_current = 5>
+  < odrivetool >
+  < odrv0.axis0.motor.config.current_lim = 10 >
+  < odrv0.axis0.controller.config.vel_limit = 58 > 
+  < odrv0.axis0.motor.config.calibration_current = 5 >
   <odrv0.config.brake_resistance = 0>
   <odrv0.axis0.motor.config.pole_pairs = 6>
   <odrv0.axis0.motor.config.torque_constant = 0.045>

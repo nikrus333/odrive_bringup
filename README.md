@@ -11,7 +11,7 @@ setup and launch odrive
   odrv0.axis0.motor.config.pole_pairs = 6
   odrv0.axis0.motor.config.torque_constant = 0.045
   odrv0.axis0.motor.config.motor_type = MOTOR_TYPE_HIGH_CURRENT
-  odrv0.axis0.encoder.config.cpr = 1024 * 8
+  odrv0.axis0.encoder.config.cpr = 1024 * 6
   odrv0.config.dc_max_negative_current =  -5
   odrv0.config.max_regen_current = 5 
   odrv0.axis0.controller.config.vel_gain = 0.01
@@ -34,7 +34,7 @@ setup and launch odrive
  ``` 
  Сохранение настроек и перезагрузка odrive:
   ```
-  drv0.save_configuration() 
+  odrv0.save_configuration() 
   odrv0.reboot()
   ``` 
   #### Настройка производится один раз

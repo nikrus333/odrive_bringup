@@ -23,6 +23,14 @@ odrv0.axis1.motor.config.motor_type = MOTOR_TYPE_HIGH_CURRENT
 odrv0.axis1.encoder.config.cpr = 1024 * 8 
 
 
+
+odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE
+odrv0.axis0.motor.config.pre_calibrated = True
+odrv0.axis0.config.startup_encoder_offset_calibration = True
+odrv0.axis0.config.startup_closed_loop_control = True
+odrv0.save_configuration()
+odrv0.reboot()
+
 """
 
 from __future__ import print_function
@@ -36,7 +44,7 @@ class MotorControl():
     def __init__(self):
         #init_odrive serial number in
         self.odrv0 = odrive.find_any(serial_number = "207735823056")
-        self.odrv1 = odrive.find_any(serial_number = "208D35853056") # or 35790860398678
+        self.odrv1 = odrive.find_any(serial_number = "306634523439") # or 35790860398678
         
     def goal_velocity(self, motorId, rps):
         if motorId == 0: 
@@ -60,9 +68,20 @@ class MotorControl():
 if __name__ == '__main__':
     motor = MotorControl()
     time.sleep(1)	
-    motor.goal_velocity(0, 5)
-    time.sleep(10)
+    motor.goal_velocity(0, -4)
+    motor.goal_velocity(1, 4)
+    motor.goal_velocity(2, 4)
+    motor.goal_velocity(3, -4)
+    time.sleep(7)
+    motor.goal_velocity(0, 4)
+    motor.goal_velocity(1, -4)
+    motor.goal_velocity(2, -4)
+    motor.goal_velocity(3, 4)
+    time.sleep(7)
     print('speed = ', motor.set_speed(0))
     motor.goal_velocity(0, 0)
+    motor.goal_velocity(1, 0)
+    motor.goal_velocity(2, 0)
+    motor.goal_velocity(3, 0)
 
 

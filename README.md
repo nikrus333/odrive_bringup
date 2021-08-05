@@ -42,9 +42,21 @@ setup and launch odrive
 
 ## 2. Калибровка и проверка на примере одного двигателя (axis0):
   ```
+    <axis>.config.startup_motor_calibration
+    <axis>.config.startup_encoder_index_search
+    <axis>.config.startup_encoder_offset_calibration
+    <axis>.config.startup_closed_loop_control
+
   odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE   
   ```
   Двигатель должен начать вращаться, затем вернуться в начальное положение.
+  
+  
+   <axis>.config.startup_motor_calibration = True
+   <axis>.config.startup_encoder_index_search = True
+   <axis>.config.startup_encoder_offset_calibration = True
+   <axis>.config.startup_closed_loop_control = True 
+
   ```
   odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
   odrv0.axis0.controller.config.control_mode = CONTROL_MODE_VELOCITY_CONTROL

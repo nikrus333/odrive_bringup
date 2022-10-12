@@ -1,5 +1,6 @@
 # odrive_bringup
 setup and launch odrive
+[Image alt](https://github.com/nikrus333/odrive_bringup/raw/main/odrive.png)
 Версия odrivetool v0.5.1
 ## 1. Необходимо настроить параметры контроллера, для этого вводим следующие команды в терминал:
 Настройка первого двигателя:

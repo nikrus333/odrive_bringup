@@ -47,21 +47,35 @@ setup and launch odrive
   odrv0.axis0.requested_state = AXIS_STATE_FULL_CALIBRATION_SEQUENCE   
   ```
   Двигатель должен начать вращаться, затем вернуться в начальное положение.
-  
-   <axis>.config.startup_motor_calibration = True  
+  ```
+    odrv0.axis0.config.startup_motor_calibration = True  
    
-   <axis>.config.startup_encoder_index_search = True  
+    odrv0.axis0.config.startup_encoder_index_search = True  
      
-   <axis>.config.startup_encoder_offset_calibration = True  
+    odrv0.axis0.config.startup_encoder_offset_calibration = True  
      
-
-   <axis>.config.startup_closed_loop_control = True  
+    odrv0.axis0.config.startup_closed_loop_control = True  
+   ```
+   ``` 
+    odrv0.axis1.config.startup_motor_calibration = True  
+   
+    odrv0.axis1.config.startup_encoder_index_search = True  
+     
+    odrv0.axis1.config.startup_encoder_offset_calibration = True  
+     
+    odrv0.axis1.config.startup_closed_loop_control = True 
+   ```
      
 
   ```
   odrv0.axis0.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
   odrv0.axis0.controller.config.control_mode = CONTROL_MODE_VELOCITY_CONTROL
   odrv0.axis0.controller.input_vel = 1
+  ```
+  ```
+  odrv0.axis1.requested_state = AXIS_STATE_CLOSED_LOOP_CONTROL
+  odrv0.axis1.controller.config.control_mode = CONTROL_MODE_VELOCITY_CONTROL
+  odrv0.axis1.controller.input_vel = 1
   ```
   Двигатель должен начать вращаться со скоростью 1.
 

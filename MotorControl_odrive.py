@@ -43,45 +43,32 @@ import time
 class MotorControl():
     def __init__(self):
         #init_odrive serial number in
-        self.odrv0 = odrive.find_any(serial_number = "207735823056")
-        self.odrv1 = odrive.find_any(serial_number = "306634523439") # or 35790860398678
+        self.odrv0 = odrive.find_any(serial_number = "206E31B3324D")
+        print(self.odrv0.vbus_voltage)
+        #self.odrv1 = odrive.find_any(serial_number = "306634523439") # or 35790860398678
         
     def goal_velocity(self, motorId, rps):
         if motorId == 0: 
             self.odrv0.axis0.controller.input_vel = rps
         if motorId == 1: 
             self.odrv0.axis1.controller.input_vel = rps
-        if motorId == 2: 
-            self.odrv1.axis0.controller.input_vel = rps
-        if motorId == 3: 
-            self.odrv1.axis1.controller.input_vel = rps
+        
 		# print(rps)
     def set_speed(self, motorId):
         if motorId == 0: 
             return self.odrv0.axis0.encoder.vel_estimate
         if motorId == 1: 
             return self.odrv0.axis1.encoder.vel_estimate
-        if motorId == 2: 
-            return self.odrv0.axis0.encoder.vel_estimate
-        if motorId == 3: 
-            return self.odrv0.axis1.encoder.vel_estimate
 if __name__ == '__main__':
     motor = MotorControl()
     time.sleep(1)	
     motor.goal_velocity(0, -4)
     motor.goal_velocity(1, 4)
-    motor.goal_velocity(2, 4)
-    motor.goal_velocity(3, -4)
+
     time.sleep(7)
     motor.goal_velocity(0, 4)
     motor.goal_velocity(1, -4)
-    motor.goal_velocity(2, -4)
-    motor.goal_velocity(3, 4)
     time.sleep(7)
     print('speed = ', motor.set_speed(0))
-    motor.goal_velocity(0, 0)
-    motor.goal_velocity(1, 0)
-    motor.goal_velocity(2, 0)
-    motor.goal_velocity(3, 0)
 
 

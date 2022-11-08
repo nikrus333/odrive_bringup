@@ -60,6 +60,7 @@ class WhellStatus(Node):
         data = Motorcontrol()
         data.conect = self.get_connect_status()
         if self.get_connect_status() == True:
+            print('here')
             data.voltage = self.get_voltage()
             encoder_err = self.get_encoder_err()
             data.is_encoder_err_0 = encoder_err[0]
@@ -111,14 +112,15 @@ class WhellStatus(Node):
         self.control_timeout = time()
 	
     def timer_callback(self):
-        v_l, v_r = self.get_motors_speed()
-        if(float(time()) - self.control_timeout < 1.5): 
-            self.set_speed(self.v_X_targ, self.v_Y_targ, self.w_Z_targ)
-        else:
-            self.set_speed(0, 0, 0)
-        self.msg.velocity[0] = v_l
-        self.msg.velocity[1] = v_r
-        self.joints_states_pub.publish(self.msg)
+        if self.get_connect_status() == True:
+            v_l, v_r = self.get_motors_speed()
+            if(float(time()) - self.control_timeout < 1.5): 
+                self.set_speed(self.v_X_targ, self.v_Y_targ, self.w_Z_targ)
+            else:
+                self.set_speed(0, 0, 0)
+            self.msg.velocity[0] = v_l
+            self.msg.velocity[1] = v_r
+            self.joints_states_pub.publish(self.msg)
 	
     def set_speed(self, vX, vY, wZ): #meteres per second / radians per second
         wZ = -1*wZ
@@ -127,7 +129,7 @@ class WhellStatus(Node):
         self.devices.goal_velocity(0, v_l)
         self.devices.goal_velocity(1, v_r)
     
-    def get_motors_speed(self):
+    def get_motors_speed(self):  
         v_l = -1*self.devices.get_speed(0)*0.39
         v_r = self.devices.get_speed(1)*0.39
         return v_l, v_r

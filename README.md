@@ -89,3 +89,13 @@ dump_errors(odrv0)
 ```
 python3 MotorControl_odrive.py 
 ```
+## Для двигателя DB42S03  и энкодера NOE2 4000 cpr 
+```
+odrv0.axis0.encoder.config.cpr = 4000 * 6
+odrv0.axis1.encoder.config.cpr = 4000 * 6
+odrv0.axis0.motor.config.motor_type = MOTOR_TYPE_GIMBAL
+odrv0.axis1.motor.config.motor_type = MOTOR_TYPE_GIMBAL
+odrv0.axis0.motor.config.resistance_calib_max_voltage  = 20
+odrv0.axis1.motor.config.resistance_calib_max_voltage  = 20
+
+```

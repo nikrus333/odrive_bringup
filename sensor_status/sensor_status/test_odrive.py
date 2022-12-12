@@ -46,7 +46,7 @@ class MotorControl():
         #init_odrive serial number in
         try:
             self.odrv0 = odrive.find_any(serial_number = serial_number_val, timeout = 3)
-            print(self.odrv0)
+            #print(self.odrv0)
         #self.odrv1 = odrive.find_any(serial_number = "306634523439") # or 35790860398678
         except: 
             print("false conect")
@@ -89,24 +89,29 @@ class MotorControl():
         else:
             motor_1 = True
         return [motor_0, motor_1]
+    
+    def get_active_errors(self):
+        print(self.odrv0.axis0.active_errors)
 
+    def test(self):
+        data = TestStoreAndReboot()
+        print(data)
     def reboot(self):
         self.odrv0.reboot()
 
 if __name__ == '__main__':
     motor = MotorControl() 
     print(motor.get_voltage())
-    print(motor.check_status_encoder())
-    print(motor.check_status_motor())
+    get_active_errors()
     #motor.reboot()
     time.sleep(2)	
-    motor.get_voltage()
-    motor.goal_velocity(0, -4)
-    motor.goal_velocity(1, 4)
+    # motor.get_voltage()
+    # motor.goal_velocity(0, -4)
+    # motor.goal_velocity(1, 4)
 
-    #time.sleep(7)
-    motor.goal_velocity(0, 4)
-    motor.goal_velocity(1, -4)
-    time.sleep(7)
+    # #time.sleep(7)
+    # motor.goal_velocity(0, 4)
+    # motor.goal_velocity(1, -4)
+    # time.sleep(7)
 
 

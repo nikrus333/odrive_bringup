@@ -15,7 +15,7 @@ class WhellStatus(Node):
         self.type_devise = "odrive" # input parametr (rosparam)
         self.type_mode = "dif"
         self.path = "/dev/ttyUSB0"
-        self.devices = 0 #MotorControl()
+        self.devices = MotorControl()
 
         super().__init__('bring_up_node')
         self.sub_control_comand = self.create_subscription(
@@ -52,7 +52,6 @@ class WhellStatus(Node):
         self.msg.velocity.append(0)
         self.conect_status = self.conect()
         
-
     def listener_callback(self, data):
         print(data)
 
@@ -60,7 +59,7 @@ class WhellStatus(Node):
         data = Motorcontrol()
         data.conect = self.get_connect_status()
         if self.get_connect_status() == True:
-            print('here')
+            print(self.devices.get_active_errors())
             data.voltage = self.get_voltage()
             encoder_err = self.get_encoder_err()
             data.is_encoder_err_0 = encoder_err[0]
@@ -75,7 +74,6 @@ class WhellStatus(Node):
             data.is_encoder_err_1 = True
             data.is_motor_err_0 = True
             data.is_motor_err_1 = True
-
         self.publisher_status.publish(data)
 
 #get status\error

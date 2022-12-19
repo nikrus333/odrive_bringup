@@ -41,7 +41,7 @@ import time
 
 
 
-class MotorControl():
+class MotorC():
     def __init__(self, serial_number_val = "3756366A3331"):
         #init_odrive serial number in
         try:
@@ -97,14 +97,23 @@ class MotorControl():
         data = TestStoreAndReboot()
         print(data)
     def reboot(self):
-        self.odrv0.reboot()
+        try:
+            self.odrv0.reboot()
+        except:
+            print('reboot')
+            #time.sleep(10)	
 
 if __name__ == '__main__':
     motor = MotorControl() 
     print(motor.get_voltage())
-    get_active_errors()
-    #motor.reboot()
-    time.sleep(2)	
+    #get_active_errors()
+    try:
+        motor.reboot()
+    except:
+        print('exept')
+    time.sleep(10)	
+    motor = MotorControl() 
+    print(motor.get_voltage())
     # motor.get_voltage()
     # motor.goal_velocity(0, -4)
     # motor.goal_velocity(1, 4)

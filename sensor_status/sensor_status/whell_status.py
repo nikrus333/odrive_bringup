@@ -7,7 +7,9 @@ from geometry_msgs.msg import Twist
 from sensor_msgs.msg import JointState
 from motor_control_msg.msg import Motorcontrol
 
-from .test_odrive import MotorControl
+from std_srvs.srv import SetBool
+
+from .test_odrive import MotorC
 
 # class for control move\status motors and encoders
 class WhellStatus(Node):
@@ -15,18 +17,9 @@ class WhellStatus(Node):
         self.type_devise = "odrive" # input parametr (rosparam)
         self.type_mode = "dif"
         self.path = "/dev/ttyUSB0"
-        self.devices = MotorControl()
+        self.devices = MotorC()
 
         super().__init__('bring_up_node')
-        self.sub_control_comand = self.create_subscription(
-            Twist,
-            '/cmd_vel',
-            self.listener_callback,
-            10)
-        self.publisher_ = self.create_publisher(
-            Twist, 
-            '/odom',
-            10)
         self.publisher_status = self.create_publisher(
             Motorcontrol, 
             '/status_all',
@@ -37,7 +30,8 @@ class WhellStatus(Node):
         self.sub = self.create_subscription(Twist, 'cmd_vel', self.cmd_cb, 2)
         self.joints_states_pub = self.create_publisher(JointState, "/joint_states", 4)
         self.create_timer(0.05, self.timer_callback)
-
+        self.srv = self.create_service(SetBool, 'reboot', self.reboot_callback)
+        #param
         self.control_timeout = time()
         self.R = 0.115
         self.l = 0.430
@@ -51,15 +45,11 @@ class WhellStatus(Node):
         self.msg.velocity.append(0)
         self.msg.velocity.append(0)
         self.conect_status = self.conect()
-        
-    def listener_callback(self, data):
-        print(data)
 
     def timer_callback_status(self):
         data = Motorcontrol()
         data.conect = self.get_connect_status()
         if self.get_connect_status() == True:
-            print(self.devices.get_active_errors())
             data.voltage = self.get_voltage()
             encoder_err = self.get_encoder_err()
             data.is_encoder_err_0 = encoder_err[0]
@@ -102,6 +92,25 @@ class WhellStatus(Node):
         motor_err = self.devices.get_motor_err()
         return motor_err
 
+#function for action 
+    def reconnect(self):
+        self.devices = MotorC()
+    
+    def reboot(self):
+        self.devices.reboot()
+        self.reconnect()
+
+    def reboot_callback(self, request, response):
+        reboot_flag = request.data
+        if reboot_flag == True:
+            self.reboot()
+            response.success = True
+            response.message = 'suc'
+        else:
+            response.success = False
+            response.message = 'false'
+        return response
+
 #function for drive
     def cmd_cb(self, data):
         self.v_X_targ = data.linear.x
@@ -137,16 +146,18 @@ class WhellStatus(Node):
             return 1
         else:
             return -1
+    
 
 
 def main(args=None):
+    print('Hi from sensor_status.')
     rclpy.init(args=args)
     whell = WhellStatus()
     rclpy.spin((whell))
     whell.destroy_node()
     rclpy.shutdown()
     #print(whell.power_status())
-    print('Hi from sensor_status.')
+    
 
 
 if __name__ == '__main__':

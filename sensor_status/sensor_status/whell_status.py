@@ -17,8 +17,7 @@ class WhellStatus(Node):
         self.type_devise = "odrive" # input parametr (rosparam)
         self.type_mode = "dif"
         self.path = "/dev/ttyUSB0"
-        self.devices = MotorC()
-
+        self.devices = MotorC(serial_number_val = "3756366A3331")
         super().__init__('bring_up_node')
         self.publisher_status = self.create_publisher(
             Motorcontrol, 
@@ -57,7 +56,6 @@ class WhellStatus(Node):
             motor_err = self.get_motor_err()
             data.is_motor_err_0 = motor_err[0]
             data.is_motor_err_1 = motor_err[1]
-
         else:
             data.voltage = 0.0
             data.is_encoder_err_0 = True
@@ -69,7 +67,7 @@ class WhellStatus(Node):
 #get status\error
     def conect(self):
         try:
-            self.devices = MotorControl()
+            self.devices = MotorC()
             return True
         except:
             return False
@@ -94,7 +92,7 @@ class WhellStatus(Node):
 
 #function for action 
     def reconnect(self):
-        self.devices = MotorC()
+        self.devices = MotorC(serial_number_val = "3756366A3331")
     
     def reboot(self):
         self.devices.reboot()

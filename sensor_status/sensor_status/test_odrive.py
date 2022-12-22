@@ -39,8 +39,6 @@ from odrive.enums import *
 from odrive.utils import *
 import time
 
-
-
 class MotorC():
     def __init__(self, serial_number_val = "3756366A3331"):
         #init_odrive serial number in
@@ -104,15 +102,16 @@ class MotorC():
             #time.sleep(10)	
 
 if __name__ == '__main__':
-    motor = MotorControl() 
+    motor = MotorC() 
     print(motor.get_voltage())
     #get_active_errors()
     try:
-        motor.reboot()
+        #motor.reboot()
+        pass
     except:
         print('exept')
     time.sleep(10)	
-    motor = MotorControl() 
+    motor = MotorC() 
     print(motor.get_voltage())
     # motor.get_voltage()
     # motor.goal_velocity(0, -4)

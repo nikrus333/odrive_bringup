@@ -99,7 +99,7 @@ odrv0.axis0.motor.config.resistance_calib_max_voltage  = 20
 odrv0.axis1.motor.config.resistance_calib_max_voltage  = 20
 
 ```
-## Для двигателя ноунейма двигателя и энкодера от Сереги
+## Для ноунейма двигателя и энкодера от Сереги
 ```
 odrv0.axis0.encoder.config.cpr = 1000 *8
 odrv0.axis0.motor.config.pole_pairs = 4
